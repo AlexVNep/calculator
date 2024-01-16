@@ -19,8 +19,8 @@ function divide(a, b) {
     return a / b;
 }
 
-let num1 = '';
-let num2 = '';
+let num1 = 0;
+let num2 = 0;
 let operator = '';
 
 //Functions that takes an operator and 2 numbers and callsone of the basic math operator function
@@ -32,8 +32,12 @@ function operate(operator, a, b) {
     } else if (operator == "*") {
         return multiply(a, b);
     } else if (operator == "/") {
+        if (b === 0) {
+            return null;
+        }
         return divide(a, b);
     } else {
         return 'undefined';
     }
 }
+ console.log(operate('/', 2, 0)); 
