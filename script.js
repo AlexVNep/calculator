@@ -19,9 +19,8 @@ function divide(a, b) {
     return a / b;
 }
 
-let num1 = 0;
-let num2 = 0;
-let operator = '';
+
+
 
 //Functions that takes an operator and 2 numbers and callsone of the basic math operator function
 function operate(operator, a, b) {
@@ -40,16 +39,25 @@ function operate(operator, a, b) {
         return 'undefined';
     }
 }
- console.log(operate('/', 2, 0));
 
- let displayValue = 0;
- const display = document.querySelector('.display');
+ let rightNumber = '0';
+ let leftNumber = '';
+ let operator = '';
+
+ const bottomText = document.querySelector('.bottomText');
+ const topText = document.querySelector('.topText')
  const buttons = document.querySelectorAll('button');
 
-function updateDisplay (event) {
-    display.textContent = event.target.id;
-}
-
-buttons.forEach(button => {
-    button.addEventListener('click', updateDisplay);
+//When button is clicked it executes updateBottomDisplay with this.id as a parameter. So it is taking the id of the buttin clicked?
+ buttons.forEach(button => {
+    button.addEventListener('click', function () {
+        updateBottomDisplay(button.id);
+    });
 });
+
+let updateBottomDisplay = number => {
+    let screenNumber = bottomText.textContent;
+    if( screenNumber.length < 16) {
+        bottomText.textContent = parseInt(screenNumber + number).toString();
+    }
+}
