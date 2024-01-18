@@ -49,7 +49,7 @@ function operate(operator, a, b) {
  const numberButtons = document.querySelectorAll('button');
  const operatorButtons = document.querySelectorAll('.operator');
 
-//When button is clicked it executes updateBottomDisplay with this.id as a parameter. So it is taking the id of the button clicked and using that as the number input for updateBottomDisplay
+//When button is clicked it executes updateBottomDisplay with button.id as a parameter. So it is taking the id of the button clicked and using that as the number input for updateBottomDisplay
  numberButtons.forEach(button => {
     button.addEventListener('click', function () {
         updateBottomDisplay(button.id);
@@ -63,6 +63,7 @@ let updateBottomDisplay = number => {
     }
 }
 
+//When button is clicked it executes displayOperator with button.id as a parameter. So it is taking the id of the button clicked and using that as the operator input for displayOperator
 operatorButtons.forEach(button => {
     button.addEventListener('click', function () {
         displayOperator(button.id);
