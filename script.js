@@ -40,24 +40,36 @@ function operate(operator, a, b) {
     }
 }
 
- let rightNumber = '0';
+ let screenNumber;
  let leftNumber = '';
  let operator = '';
 
  const bottomText = document.querySelector('.bottomText');
  const topText = document.querySelector('.topText')
- const buttons = document.querySelectorAll('button');
+ const numberButtons = document.querySelectorAll('button');
+ const operatorButtons = document.querySelectorAll('.operator');
 
-//When button is clicked it executes updateBottomDisplay with this.id as a parameter. So it is taking the id of the buttin clicked?
- buttons.forEach(button => {
+//When button is clicked it executes updateBottomDisplay with this.id as a parameter. So it is taking the id of the button clicked and using that as the number input for updateBottomDisplay
+ numberButtons.forEach(button => {
     button.addEventListener('click', function () {
         updateBottomDisplay(button.id);
     });
 });
 
 let updateBottomDisplay = number => {
-    let screenNumber = bottomText.textContent;
+    screenNumber = bottomText.textContent;
     if( screenNumber.length < 16) {
         bottomText.textContent = parseInt(screenNumber + number).toString();
     }
 }
+
+operatorButtons.forEach(button => {
+    button.addEventListener('click', function () {
+        displayOperator(button.id);
+    })
+})
+
+let displayOperator = operator => {
+        bottomText.textContent = screenNumber + operator;    
+}
+
