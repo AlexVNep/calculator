@@ -43,14 +43,13 @@ function operate(operator, a, b) {
  console.log(operate('/', 2, 0));
 
  let displayValue = 0;
- const displayArea = document.querySelector('.display');
- const numButtons = document.querySelectorAll('button');
+ const display = document.querySelector('.display');
+ const buttons = document.querySelectorAll('button');
 
- displayArea.textContent = displayValue;
+function updateDisplay (event) {
+    display.textContent = event.target.id;
+}
 
- numButtons.forEach ((button) => {
-    button.addEventListener('click', () => {
-        displayArea.textContent = button.id;
-    });
- });
-
+buttons.forEach(button => {
+    button.addEventListener('click', updateDisplay);
+});
