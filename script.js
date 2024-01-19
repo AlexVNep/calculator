@@ -40,37 +40,70 @@ function operate(operator, a, b) {
     }
 }
 
- let screenNumber;
  let leftNumber = '';
- let operator = '';
+ let rightNumber = '';
+ let sign = '';
+ let isBtnClicked = false;
 
  const bottomText = document.querySelector('.bottomText');
  const topText = document.querySelector('.topText')
  const numberButtons = document.querySelectorAll('button');
  const operatorButtons = document.querySelectorAll('.operator');
+ const allButtons = document.querySelectorAll('button');
 
-//When button is clicked it executes updateBottomDisplay with button.id as a parameter. So it is taking the id of the button clicked and using that as the number input for updateBottomDisplay
+//It is taking the id of the button clicked and using that as the number input for updateBottomDisplay
  numberButtons.forEach(button => {
+    button.addEventListener('click', function () {
+        typedLeftNumber(button.id);
+    });    
+});
+
+numberButtons.forEach(button => {
+    button.addEventListener('click', function () {
+        typedRightNumber(button.value);
+    });
+});
+
+function typedLeftNumber (number) {
+    leftNumber = parseInt(leftNumber + number).toString();
+    return leftNumber;
+    //bottomText.textContent = leftNumber;
+}
+
+function typedRightNumber (number) {
+    rightNumber =  parseInt(rightNumber + number).toString();
+    return rightNumber;
+    // bottomText.textContent = rightNumber;
+}
+
+//It is taking the id of the button clicked and using that as the operator input for displayOperator
+operatorButtons.forEach(button => {
+    button.addEventListener('click', function () {
+        typedOperator(button.id);
+    })
+})
+
+function typedOperator (operator) {
+    sign = operator;
+}
+
+function updateBottomDisplay () {
+    if(rightNumber == '' || sign == '') {
+        bottomText.textContent = leftNumber;
+        console.log(leftNumber);
+        console.log(rightNumber);
+    // } else if (leftNumber !== '0' && (sign == '/' || '*' || '-' || '+')) {
+    //     bottomText.textContent = leftNumber + sign;
+    //     console.log(leftNumber);
+    //     console.log(rightNumber);
+    // } else if (leftNumber !== '0' || rightNumber !== '0' || (sign == '/' || '*' || '-' || '+')) {
+    //     bottomText.textContent = sign + rightNumber;
+     
+    }
+}
+
+allButtons.forEach(button => {
     button.addEventListener('click', function () {
         updateBottomDisplay(button.id);
     });
 });
-
-let updateBottomDisplay = number => {
-    screenNumber = bottomText.textContent;
-    if( screenNumber.length < 16) {
-        bottomText.textContent = parseInt(screenNumber + number).toString();
-    }
-}
-
-//When button is clicked it executes displayOperator with button.id as a parameter. So it is taking the id of the button clicked and using that as the operator input for displayOperator
-operatorButtons.forEach(button => {
-    button.addEventListener('click', function () {
-        displayOperator(button.id);
-    })
-})
-
-let displayOperator = operator => {
-        bottomText.textContent = screenNumber + operator;    
-}
-
