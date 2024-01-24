@@ -22,7 +22,7 @@ function divide(a, b) {
 
 
 
-//Functions that takes an operator and 2 numbers and callsone of the basic math operator function
+//Functions that takes an operator and 2 numbers and calls one of the basic math operator function
 function operate(operator, a, b) {
     if (operator == "+") {
         return add(a, b);
@@ -40,16 +40,15 @@ function operate(operator, a, b) {
     }
 }
 
- let bottomNumber = false;
+ let bottomNumber = '0';
  let topNumber = '0';
- let sign = '';
- let isBtnClicked = false;
+ isEqualsClicked = false;
+let result;
 
  const bottomText = document.querySelector('.bottomText');
  const topText = document.querySelector('.topText')
- const numberButtons = document.querySelectorAll('button');
- const operatorButtons = document.querySelectorAll('.operator');
  const allButtons = document.querySelectorAll('button');
+ const equalsBtn = document.querySelector('#equals');
 
 //It is taking the id of the button clicked and using that as the input for the button to append to display
  allButtons.forEach(button => {
@@ -58,23 +57,39 @@ function operate(operator, a, b) {
     });    
 });
 
-function updateDisplay () {
+equalsBtn.addEventListener('click', function () {
+    resultValue();
+})
+function updateTopDisplay () {
     // is making the text of the topText = topNumber
     topText.textContent = topNumber;
 }
 
 function appendToDisplay (button) {
-    if (topNumber === '0' || bottomNumber) {
+    if (topNumber === '0' || isEqualsClicked) {
         // if topNumber equals '0' or the bottomNumber is already displayed (ie calculation executed), replace it with the button that was clicked
         topNumber = button;
-    } else {
+    } else if (topNumber != '0' || isequalsClicked){
         //Otherwis, concatenate the button that was clicked to the topNumber
         topNumber += button;
+    } else {
+        resultValue();
     }
-    // reset the bottomNumber flag to false, as the user entered a new button
-    bottomNumber = false;
-
     // execute the updateDisplay function to update the topText
-    updateDisplay();
+    updateTopDisplay();
     console.log(topNumber);
+    console.log(typeof topNumber);
+}
+
+function updateBottomDisplay () {
+    bottomText.textContent = result;
+}
+
+function resultValue () {
+    isEqualsClicked = true;
+    do {
+        result = Number(topNumber);
+        updateBottomDisplay()
+    } while (isEqualsClicked == true);
+    isEqualsClicked = false;
 }
