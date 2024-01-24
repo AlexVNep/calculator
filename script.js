@@ -40,8 +40,8 @@ function operate(operator, a, b) {
     }
 }
 
- let leftNumber = '';
- let rightNumber = '';
+ let bottomNumber = false;
+ let topNumber = '0';
  let sign = '';
  let isBtnClicked = false;
 
@@ -51,59 +51,30 @@ function operate(operator, a, b) {
  const operatorButtons = document.querySelectorAll('.operator');
  const allButtons = document.querySelectorAll('button');
 
-//It is taking the id of the button clicked and using that as the number input for updateBottomDisplay
- numberButtons.forEach(button => {
+//It is taking the id of the button clicked and using that as the input for the button to append to display
+ allButtons.forEach(button => {
     button.addEventListener('click', function () {
-        typedLeftNumber(button.id);
+        appendToDisplay(button.id);        
     });    
 });
 
-numberButtons.forEach(button => {
-    button.addEventListener('click', function () {
-        typedRightNumber(button.value);
-    });
-});
-
-function typedLeftNumber (number) {
-    leftNumber = parseInt(leftNumber + number).toString();
-    return leftNumber;
-    //bottomText.textContent = leftNumber;
+function updateDisplay () {
+    // is making the text of the topText = topNumber
+    topText.textContent = topNumber;
 }
 
-function typedRightNumber (number) {
-    rightNumber =  parseInt(rightNumber + number).toString();
-    return rightNumber;
-    // bottomText.textContent = rightNumber;
-}
-
-//It is taking the id of the button clicked and using that as the operator input for displayOperator
-operatorButtons.forEach(button => {
-    button.addEventListener('click', function () {
-        typedOperator(button.id);
-    })
-})
-
-function typedOperator (operator) {
-    sign = operator;
-}
-
-function updateBottomDisplay () {
-    if(rightNumber == '' || sign == '') {
-        bottomText.textContent = leftNumber;
-        console.log(leftNumber);
-        console.log(rightNumber);
-    // } else if (leftNumber !== '0' && (sign == '/' || '*' || '-' || '+')) {
-    //     bottomText.textContent = leftNumber + sign;
-    //     console.log(leftNumber);
-    //     console.log(rightNumber);
-    // } else if (leftNumber !== '0' || rightNumber !== '0' || (sign == '/' || '*' || '-' || '+')) {
-    //     bottomText.textContent = sign + rightNumber;
-     
+function appendToDisplay (button) {
+    if (topNumber === '0' || bottomNumber) {
+        // if topNumber equals '0' or the bottomNumber is already displayed (ie calculation executed), replace it with the button that was clicked
+        topNumber = button;
+    } else {
+        //Otherwis, concatenate the button that was clicked to the topNumber
+        topNumber += button;
     }
-}
+    // reset the bottomNumber flag to false, as the user entered a new button
+    bottomNumber = false;
 
-allButtons.forEach(button => {
-    button.addEventListener('click', function () {
-        updateBottomDisplay(button.id);
-    });
-});
+    // execute the updateDisplay function to update the topText
+    updateDisplay();
+    console.log(topNumber);
+}
