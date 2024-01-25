@@ -52,8 +52,9 @@ let result = null;
  const numButtons = document.querySelectorAll('.number');
  const opButton = document.querySelectorAll('.operator')
  const equalsBtn = document.querySelector('#equals');
+ const clear = document.querySelector('.clear');
 
-//It is taking the id of the button clicked and using that as the input for the button to append to display
+//It is taking the id of the number button clicked and using that as the input for the button to update display
  numButtons.forEach(button => {
     button.addEventListener('click', function () {
         inputNumber(button.id);
@@ -61,6 +62,7 @@ let result = null;
     });    
 });
 
+// Is taking the id of the operator button clicked and using it to update display 
 opButton.forEach(button => {
     button.addEventListener('click', function () {
         inputOperator(button.id);   
@@ -73,9 +75,15 @@ equalsBtn.addEventListener('click', function() {
     updateDisplay();
 })
 
+clear.addEventListener('click', function() {
+    clearDisplay();
+    updateDisplay();
+})
+
 function inputNumber (number) {
     if (firstOperator === null) {
-        if (displayValue === '0' || displayValue=== 0) {
+        // 
+        if (displayValue === '0' || displayValue === 0) {
             displayValue = number;
         } else if (displayValue === firstOperand) {
             displayValue = number
@@ -113,11 +121,6 @@ function inputOperator (operator) {
         firstOperator = operator;
         firstOperand = displayValue;
     }
-    // console.log(displayValue);
-    // console.log(firstOperand);
-    // console.log(secondOperand);
-    console.log(firstOperator);
-    // console.log(secondOperator);
 }
 
 function inputEquals() {
@@ -155,39 +158,20 @@ function inputEquals() {
     }
 }
 
+function clearDisplay() {
+    displayValue = '0';
+    firstOperand = null;
+    secondOperand = null;
+    firstOperator = null;
+    secondOperator = null;
+    result = null;
+}
+
 function updateDisplay () {
-    // is making the text of the topText = topNumber
+    // is making the text of the displayText = displayValue
     displayText.textContent = displayValue;
-    // console.log(displayValue);
 }
 
 function roundAccurately(num, places) {
     return parseFloat(Math.round(num + 'e' + places) + 'e-' + places);
 }
-/*function appendToDisplay (button) {
-    if (displayValue === '0' || btnFlag) {
-        displayValue = button;
-    } else if (displayValue != '0' || btnFlag){
-        //Otherwis, concatenate the button that was clicked to the topNumber
-        displayValue += button;
-    } else if (displayValue != '0' || btnFlag == true) {
-        equation = displayValue += button;
-    }
-    // Reset the result display flag to false, as the user entered a new value
-    btnFlag = false;
-
-    // execute the updateDisplay function to update the displayValue
-    updateDisplay();
-    // console.log(displayValue);
-    // console.log(typeof displayValue);
-}
-
-
-
-function updateDisplayValue (button) {
-    btnFlag = true;
-    if (displayValue !== '0') {
-        equation = displayValue += button;
-    } 
-    console.log(equation);
-    }*/
