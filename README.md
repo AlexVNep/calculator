@@ -12,3 +12,7 @@ Clear (Del) button to reset the calculator.
 HTML
 CSS
 JavaScript
+
+# To view
+
+https://alexvnep.github.io/calculator/
